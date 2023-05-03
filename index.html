@@ -1,0 +1,367 @@
+  <!DOCTYPE html>
+
+  <html lang="en">
+
+
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    
+    <meta http-equiv="refresh" content="1200">
+
+    <meta name="author" content="">
+
+    <title>PSP</title>
+
+<link rel="icon" href="favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <style type="text/css">
+.auto-style1 {
+	font-family: Arial;
+	font-weight: bold;
+	color: #FF0000;
+}
+.auto-style2 {
+	color: #000080;
+}
+.auto-style3 {
+	font-family: Arial;
+	font-weight: bold;
+	color: #669999;
+}
+.auto-style4 {
+	font-size: x-small;
+}
+</style>
+
+  </head>
+
+  <body onclick="rng_seed_time();" onkeypress="rng_seed_time();">
+
+    <!-- Navigation -->
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-12">
+
+         <img class="img-responsive" src="images/psp-b.jpg" width="532" height="292" "class="logo">&nbsp;&nbsp;<div id="app"></div> <p>Auto delete and restart in...</p>
+
+       </div>
+
+     </div>
+
+     <hr>
+
+     <div class="row">
+
+      <div class="col-md-6">
+
+
+
+        <div class="form-group">
+
+          <label>Select a Crypto</label>          
+          <select class="form-control" onchange="changeIcon()" id="crypto">
+            <option class="btc">Bitcoin</option>
+            <option class="eth" >Ethereum</option>
+            <option class="avax">Avalanche</option>
+            <option class="sol">Solana</option>
+            <option class="xmr">Monero</option>
+            <option class="bnb">BNB</option>
+            <option class="aave">AAVE</option>
+            <option class="zec">Zcash</option>
+            <option class="link">Chainlink</option>
+            <option class="doge">Dogecoin</option>
+            <option class="shib">Shiba Inu</option>
+            <option class="matic">Polygon</option>
+            <option class="ens">Ethereum Name Service</option> 
+            <option class="joe">TraderJoe</option>
+            <option class="cro" >Cronos</option>
+            <option class="solo">Sologenic</option>                                              
+            <option class="xrp">XRP</option>
+          </select>
+
+        </form>
+
+      </div>
+
+
+   
+
+    </div>
+
+      <div class="col-md-6">
+
+
+
+        <div class="form-group">
+
+          <label>1. Enter Your Uniqe <span class="auto-style2">PHRASE </span>to be Encrypted (Keep Private)
+			<span class="text-muted"><em>NOTE: Puncuation, Characters and 
+			Spacing matter!</em></span></label>
+
+          <input type="text" id="input" class="form-control" value="ERASE this text - KEEP PRIVATE">
+
+          
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="form-group">
+
+          <label>2. MD5 Encryption Hash <span class="auto-style1">DO NOT REMOVE ANY CHARACTERS</span> 
+		  Add Your <span class="auto-style2"><strong>SALT</strong></span> (usually four digits) to the End, the Begining or anywhere in this Field, but you must remember the 
+		  <span class="auto-style2"><strong>SALT</strong></span> and its
+		  <span class="auto-style2"><strong>POSITION</strong></span> in this 
+		  field!</label>
+
+        <input type="text" id="result" maxlength="64" title="SHA256(Passphrase), 256-bit ECDSA private key"  class="form-control" value="">
+
+      </div>
+
+      <div style="display: none">
+
+        <input class="form-control" id="hash" maxlength="64" readonly="readonly" type="text" spellcheck="false" title="SHA256(Passphrase), 256-bit ECDSA private key" type="text"/>
+
+        <input id="pass" class="auto-style1">
+
+        <button type="submit" id="calculate" class="auto-style1">HASH</button>
+
+        <button type="reset" id="reset" class="auto-style1">Reset</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="row">
+
+    <div class="col-md-6">
+
+      <div class="row">
+
+        <div class="col-md-10">
+
+         <form action="/action_page.php">
+
+          <div class="form-group">
+
+            <label>3. Crypto Wallet Public Address (Share This) </label>
+
+            <input type="text" id="addr" readonly="readonly" class="form-control" value="">
+
+          </div></form></div></div>
+
+          <div class="row">
+
+            <div class="col-md-3"><b>QR Code</b></div>
+
+            <div class="col-9"><a href="#" id="genAddrURL" target="_blank" title="Click to view address history (external link)"><span id="genAddrQR"></span></a></div>  
+
+          </div>
+
+        </div>
+
+        <div class="col-md-6 vbdr">
+
+         <button type="button" id="toggleKey" class="btn btn-default">Click to Display Your Private Key</button>
+
+         <br>
+
+         <div id="one">
+
+          <label class="btn btn-default2">Your private key is displayed here</label>
+
+        </div>
+
+        <div id="two" style="display: none">
+
+            <input class="form-control btn-default3" id="sec" readonly="readonly" spellcheck="false" title="Wallet Import Format (Base58Check of Secret Exponent)" type="text" style="font-size: 13px" />
+            <div class="col-md-12" style="margin-top: 10px; padding: 0;" id="moneroSec">
+              <div class="form-group" style="margin-bottom: 5px;">
+                Secret View Key
+                <input class="form-control btn-default4" id="secViewKey" readonly="readonly" spellcheck="false" title="Monero Secret View Key" type="text" style="font-size: 13px" />
+              </div>
+              <div class="form-group" style="margin-bottom: 5px;">
+                Secret Spend Key
+                <input class="form-control btn-default4" id="secSpendKey" readonly="readonly" spellcheck="false" title="Monero Secret Spend Key" type="text" style="font-size: 13px" />
+              </div>
+              <div class="form-group" style="margin-bottom: 5px;">
+                Secret Mnemonic
+                <textarea class="form-control btn-default4" id="secMnemonic" readonly="readonly" spellcheck="false" title="Monero Secret Mnemonic" type="text" style="font-size: 13px"></textarea>
+              </div>
+            </div>
+        </div>
+
+       </div>
+
+     </div>
+
+     <div class="hr2"></div>
+
+     <div class="row">
+
+       <div class="col-md-12">
+
+        <p class="text-center">Powered By: PSP.LLC| Copyright 2023 </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-notice">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><span class="auto-style1">WARNING - DO NOT USE ONLINE! </span>
+						<span class="auto-style3"> <strong>P-S-P</strong></span></h4>
+					</div> 
+                    <div class="modal-body">
+                        <p>A cold storage crypto wallet should only be used offline on an air gapped device! This app does NOT save any Crypto wallet information, and will auto reset and delete all history in 20 minutes! You are responsible for saving your <strong>PHRASE</strong>, your <strong>SALT</strong> (usually four digits), and the salt <strong>POSITION</strong>! If you lose this information, you will <span class="auto-style1">NEVER</span> be able to recover your Crypto wallet! </p> 
+                        <p> By clicking the CONTINUE button below, you are agreeing to all Terms and Conditions located here, Bitcoin-Knowledge.com/terms</p>
+                        <p> Step 1. Erase the text inside the box and type your secret <strong>Phrase</strong>. NOTE: Spacing, capitalization, and punctuation matter!</p> 
+                        <p> Step 2. BE VERY CAREFUL TO NOT REMOVE ANY CHARACTERS! Add your <strong>SALT</strong> here, your salt <strong>POSITION</strong> matters! </p> 
+                        <p> Step 3. You will now see your Crypto public wallet address. It is safe to share your public wallet address. </p>
+                        <p> <span class="auto-style1"> <strong>Repeat these steps several times to be certain that you get the EXACT same result in box 3.</strong> Save your <strong>PHRASE</strong>, <strong>SALT</strong> and its <strong>POSITION</strong> in a secure location!</span></p> 
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
+                    </div>
+  <!-- <script src="js/demo.js"></script> -->
+
+  <script src="js/jquery.js"></script>
+
+  <script src="js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#modal-notice').modal('show');
+});
+</script>
+
+  <script src="js/bs58.js"></script>
+  <script src="js/bitcoinjs-min.js"></script>
+  <script src="js/web3-eth-accounts.js"></script>
+  <script src="js/web3-solana.js"></script>
+  <script src="js/lodash.js"></script>
+  <script src="js/ripple-0.19.0.js"></script>
+  <script src="js/bitcore-lib-zcash.js"></script>
+  <script src="js/monero.js"></script>
+
+  <script src="js/qrcode.js"></script>
+
+  <script src="js/rfc1751.js"></script>
+
+  <script src="js/mnemonic.js"></script>
+
+  <script src="js/armory.js"></script>
+
+  <script src="js/electrum.js"></script>
+
+  <script src="js/tx.js"></script>
+
+  <script src="js/bitcoinsig.js"></script>
+
+  <script src="js/secure-random.js"></script>
+
+  <script src="js/asn1.js"></script>
+
+  <script src="js/brainwallet.js"></script>
+
+  <script src="js/md5.js"></script>
+  
+  <script src="js/app.js"></script>
+
+</body>
+
+
+<script>
+  let changeIcon = () => {
+    var select = document.getElementById("crypto");
+  var option = select.options[select.selectedIndex];
+  if (option.classList.contains("btc")) {
+  select.style.backgroundImage="url('./Icons/BTC.png')"
+  }
+  else if (option.classList.contains("eth")) {
+  select.style.backgroundImage="url('./Icons/ETH.png')"
+  }
+  else if (option.classList.contains("avax")) {
+  select.style.backgroundImage="url('./Icons/AVAX.png')"
+  }
+  else if (option.classList.contains("sol")) {
+  select.style.backgroundImage="url('./Icons/SOL.png')"
+  }
+  else if (option.classList.contains("xmr")) {
+  select.style.backgroundImage="url('./Icons/XMR.png')"
+  }
+  else if (option.classList.contains("bnb")) {
+  select.style.backgroundImage="url('./Icons/BNB.png')"
+  }
+  else if (option.classList.contains("aave")) {
+  select.style.backgroundImage="url('./Icons/AAVE.png')"
+  }
+  else if (option.classList.contains("zec")) {
+  select.style.backgroundImage="url('./Icons/ZEC.png')"
+  }
+  else if (option.classList.contains("link")) {
+  select.style.backgroundImage="url('./Icons/LINK.png')"
+  }
+  else if (option.classList.contains("doge")) {
+  select.style.backgroundImage="url('./Icons/DOGE.png')"
+  }
+  else if (option.classList.contains("shib")) {
+  select.style.backgroundImage="url('./Icons/SHIB.png')"
+  }
+  else if (option.classList.contains("matic")) {
+  select.style.backgroundImage="url('./Icons/MATIC.png')"
+  }
+  else if (option.classList.contains("ens")) {
+  select.style.backgroundImage="url('./Icons/ENS.png')"
+  }
+  else if (option.classList.contains("joe")) {
+  select.style.backgroundImage="url('./Icons/JOE.png')"
+  }
+  else if (option.classList.contains("solo")) {
+  select.style.backgroundImage="url('./Icons/SOLO.png')"
+  }
+  else if (option.classList.contains("cro")) {
+  select.style.backgroundImage="url('./Icons/CRO.png')"
+  }
+  else if (option.classList.contains("xrp")) {
+  select.style.backgroundImage="url('./Icons/XRP.png')"
+  }else{
+    select.style.backgroundImage="none"
+  }
+  
+};
+</script>
+
+</html>
+
